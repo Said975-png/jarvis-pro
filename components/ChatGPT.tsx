@@ -369,6 +369,10 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
                 </svg>
               )}
             </button>
+            <VoiceRecordButton
+              onTranscript={handleVoiceTranscript}
+              disabled={isTyping || isUploadingFile}
+            />
             <textarea
               ref={textareaRef}
               value={inputText}
