@@ -447,6 +447,162 @@
   100% { transform: rotate(360deg); }
 }
 
+/* Message Feedback */
+.message-feedback {
+  margin-top: 8px;
+  padding: 8px 0;
+}
+
+.message-feedback.submitted {
+  opacity: 0.7;
+}
+
+.feedback-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.feedback-question {
+  font-size: 12px;
+  color: #6b7280;
+  margin-right: 4px;
+}
+
+.rating-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.feedback-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.feedback-btn:hover {
+  background: #f3f4f6;
+  transform: scale(1.1);
+}
+
+.feedback-btn.positive:hover,
+.feedback-btn.positive.selected {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.feedback-btn.negative:hover,
+.feedback-btn.negative.selected {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.feedback-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.feedback-thanks {
+  font-size: 12px;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+/* Feedback Comment */
+.feedback-comment {
+  margin-top: 8px;
+  padding: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.comment-header {
+  margin-bottom: 8px;
+}
+
+.comment-header span {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.comment-textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  resize: vertical;
+  min-height: 60px;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.comment-textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+.comment-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.comment-submit,
+.comment-cancel {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.comment-submit {
+  background: #0066cc;
+  color: white;
+  border: none;
+}
+
+.comment-submit:hover:not(:disabled) {
+  background: #0052a3;
+}
+
+.comment-submit:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.comment-cancel {
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+.comment-cancel:hover:not(:disabled) {
+  background: #f9fafb;
+  color: #374151;
+}
+
 
 .jarvis-textarea {
   flex: 1;
