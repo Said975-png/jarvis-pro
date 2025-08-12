@@ -81,12 +81,12 @@ export default function VoiceRecordButton({
       onClick={handleClick}
       disabled={disabled}
       className={`voice-record-btn ${isRecording ? 'recording' : ''} ${className}`}
-      title={isRecording ? 'Нажмите чтобы остановить запись' : 'Записать голосовое сообщение'}
+      title={isRecording ? 'Говорите сейчас... Нажмите чтобы остановить' : 'Записать голосовое сообщение'}
     >
       {isRecording ? (
         <div className="recording-animation">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+            <circle cx="12" cy="12" r="8" fill="currentColor"/>
           </svg>
           <div className="recording-pulse"></div>
         </div>
