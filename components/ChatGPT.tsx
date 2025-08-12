@@ -26,6 +26,51 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const sessionId = useRef(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`)
+
+  // Функция для сохранения взаимодействия в базе знаний
+  const saveInteractionToLearning = async (userMessage: string, botResponse: string, userMessageId: string) => {
+    try {
+      const response = await fetch('/api/learning', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'save_interaction',
+          userMessage,
+          botResponse,
+          sessionId: sessionId.current,
+          context: messages.slice(-3).map(m => m.text), // Последние 3 сообщения как контекст
+          tags: extractTags(userMessage + ' ' + botResponse)
+        }),
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        // Сохраняем ID взаимодействия для связи с сообщением
+        setInteractionIds(prev => ({
+          ...prev,
+          [userMessageId]: data.data.interactionId
+        }))
+        console.log('Interaction saved for learning:', data.data.interactionId)
+      }
+    } catch (error) {
+      console.error('Error saving interaction for learning:', error)
+    }
+  }
+
+  // Извлечение тегов из текста
+  const extractTags = (text: string): string[] => {
+    const commonTags = [
+      'веб-разработка', 'диза��н', 'программирование', 'ai', 'технологии',
+      'фронтенд', 'бэкенд', 'react', 'javascript', 'typescript', 'css',
+      'html', 'api', 'база данных', 'сеть', 'безопасность', 'ui', 'ux'
+    ]
+
+    const lowerText = text.toLowerCase()
+    return commonTags.filter(tag => lowerText.includes(tag))
+  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -114,7 +159,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       return data.message
     } catch (error) {
       console.error('Error calling AI API:', error)
-      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в ��ате! 🚀'
+      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в чате! 🚀'
     }
   }
 
