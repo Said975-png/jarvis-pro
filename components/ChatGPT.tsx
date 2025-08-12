@@ -125,7 +125,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const generateJarvisResponse = async (userMessage: string, conversationHistory: Message[]): Promise<string> => {
     try {
       const apiMessages = conversationHistory
-        .filter(msg => msg.text !== 'При���ет! Я ДЖАРВИС, ваш AI-помощник. Чем могу помочь?')
+        .filter(msg => msg.text !== 'При��ет! Я ДЖАРВИС, ваш AI-помощник. Чем могу помочь?')
         .map(msg => ({
           role: msg.isUser ? 'user' as const : 'assistant' as const,
           content: msg.text
@@ -167,7 +167,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
     if (!file || file.type !== 'application/pdf') {
       const errorMessage: Message = {
         id: Date.now().toString(),
-        text: 'Пож��луйста, выберите PDF файл',
+        text: 'Пожалуйста, выберите PDF файл',
         isUser: false,
         timestamp: new Date()
       }
@@ -355,6 +355,14 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
                     </div>
                   ))}
                 </div>
+                {!message.isUser && interactionIds[message.id] && (
+                  <MessageFeedback
+                    interactionId={interactionIds[message.id]}
+                    onFeedbackSent={(rating) => {
+                      console.log(`Feedback sent for message ${message.id}: ${rating}`)
+                    }}
+                  />
+                )}
               </div>
             </div>
           ))}
