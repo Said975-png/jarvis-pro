@@ -146,7 +146,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
   if (!isOpen) return null
 
   return (
-    <div className="jarvis-chat-overlay">
+    <div className="jarvis-chat-overlay modal">
       <div className="jarvis-chat-container-modal">
         {/* Header */}
         <div className="jarvis-chat-header">
