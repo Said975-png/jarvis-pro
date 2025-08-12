@@ -34,7 +34,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       recognition.interimResults = true
       recognition.lang = 'ru-RU'
       recognition.maxAlternatives = 1
-      // Б��лее быстрая обработка результатов
+      // Более быстрая обработка результатов
       recognition.serviceURI = ''
       
       recognition.onstart = () => {
@@ -58,7 +58,12 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
           }
         }
 
-        const fullTranscript = finalTranscript + interimTranscript
+        // Сохраняем финальный транскрипт
+        if (hasFinalResult && finalTranscript.trim()) {
+          finalTranscriptRef.current += finalTranscript
+        }
+
+        const fullTranscript = finalTranscriptRef.current + interimTranscript
         setTranscript(fullTranscript)
 
         // Очищаем предыдущий таймер
@@ -67,12 +72,12 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
         }
 
         // Если есть финальный результат и достаточно текста, останавливаем быстрее
-        if (hasFinalResult && finalTranscript.trim().length > 3) {
+        if (hasFinalResult && finalTranscript.trim().length > 2) {
           timeoutRef.current = setTimeout(() => {
             if (recognition && isRecording) {
               recognition.stop()
             }
-          }, 1500) // 1.5 секунды после финального результата
+          }, 1000) // 1 секунда после финального результата
         }
         // Если только промежуточные результаты, ждем дольше
         else if (interimTranscript.trim().length > 0) {
@@ -80,7 +85,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             if (recognition && isRecording) {
               recognition.stop()
             }
-          }, 3000) // 3 секунды для промежуточных результатов
+          }, 2500) // 2.5 секунды для промежуточных результатов
         }
         // Если ничего не распознано, останавливаем через короткое время
         else {
@@ -88,7 +93,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             if (recognition && isRecording) {
               recognition.stop()
             }
-          }, 2000)
+          }, 1500)
         }
       }
       
