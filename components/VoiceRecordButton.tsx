@@ -3,6 +3,9 @@ import { useVoiceRecording } from '../hooks/useVoiceRecording'
 
 interface VoiceRecordButtonProps {
   onTranscript: (text: string) => void
+  onRecordingStart?: () => void
+  onRecordingStop?: () => void
+  onLiveTranscript?: (text: string) => void
   disabled?: boolean
   className?: string
 }
