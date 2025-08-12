@@ -84,7 +84,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
 
       // Резервные ответы в случае ошибки
       const fallbackResponses = [
-        'Я ДЖАРВИС и я здесь, чтобы помочь! Попробуйте ещё раз. Если проблемы повторяются - опишите ваш вопрос подробнее! 🚀',
+        'Я ДЖАРВИС и я здесь, чтобы помочь! Попробуйте ещё раз. Если проблемы повторяются - опишит�� ваш вопрос подробнее! 🚀',
         'Привет! Я ДЖАРВИС и всегда готов помочь с веб-разработкой! Попробуйте переформулировать вопрос или задайте новый! ✨',
         'Я готов ответить на любые вопросы о веб-разработке и AI! Попробуйте снова. 🔧',
       ]
@@ -225,10 +225,6 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
         {/* Input */}
         <div className="jarvis-input-area">
           <div className="jarvis-input-container">
-            <VoiceRecordButton
-              onTranscript={handleVoiceTranscript}
-              disabled={isTyping}
-            />
             <textarea
               ref={textareaRef}
               value={inputText}
