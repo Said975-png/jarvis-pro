@@ -278,7 +278,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       setMessages(finalMessages)
 
       // Сохраняем взаимодействие для обучения
-      await saveInteractionToLearning(currentInput, aiText, userMessage.id)
+      await saveInteractionToLearning(currentInput, aiText, aiResponse.id)
     } catch (error) {
       console.error('Error generating AI response:', error)
       
