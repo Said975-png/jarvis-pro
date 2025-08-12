@@ -131,6 +131,19 @@
   box-shadow: none;
 }
 
+/* Modal Chat Container */
+.jarvis-chat-container-modal {
+  width: 100%;
+  max-width: 800px;
+  height: 85vh;
+  background: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
 /* Chat Header */
 .jarvis-chat-header {
   padding: 16px 20px;
