@@ -92,7 +92,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
     try {
       // Подготавливаем историю сообщений для API
       const apiMessages = conversationHistory
-        .filter(msg => msg.text !== 'Привет! Я ДЖАРВИС, ваш AI-помощник в мире веб-разработки. Чем могу помочь?') // Исключаем начальное сообщение
+        .filter(msg => msg.text !== 'Привет! Я ДЖАРВИС, ваш AI-помощни�� в мире веб-разработки. Чем могу помочь?') // Исключаем начальное сообщение
         .map(msg => ({
           role: msg.isUser ? 'user' as const : 'assistant' as const,
           content: msg.text
@@ -130,7 +130,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
 
       // Резервные ответы в случае ошибки
       const fallbackResponses = [
-        'Я ДЖАРВИС и я здесь, чтобы помочь! Попробуйте ещё раз. Если проблемы повторяются - опишите ваш вопрос подробнее! 🚀',
+        'Я ДЖАРВИС и я здесь, чтобы помочь! Попробуйте ещё раз. Если проблемы повторяются - опишите ваш вопрос подробнее! ��',
         'Привет! Я ДЖАРВИС и всегда готов помочь с веб-разработкой! Попробуйте переформулировать вопрос или задайте новый! ✨',
         'Я готов ответить на любые вопросы о веб-разработке и AI! Попробуйте снова. 🔧',
       ]
@@ -245,6 +245,14 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
                     </div>
                   ))}
                 </div>
+                {!message.isUser && interactionIds[message.id] && (
+                  <MessageFeedback
+                    interactionId={interactionIds[message.id]}
+                    onFeedbackSent={(rating) => {
+                      console.log(`Feedback sent for message ${message.id}: ${rating}`)
+                    }}
+                  />
+                )}
               </div>
             </div>
           ))}
