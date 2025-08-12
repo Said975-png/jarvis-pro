@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-import VoiceRecordButton from './VoiceRecordButton'
 
 interface Message {
   id: string
@@ -47,7 +46,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
     try {
       // Подготавливаем историю сообщений для API
       const apiMessages = conversationHistory
-        .filter(msg => msg.text !== 'Привет! Я ДЖАРВИС, ваш AI-помощник в мире веб-разработки. Чем могу помочь?') // Исключаем начальное сообщение
+        .filter(msg => msg.text !== 'Привет! Я ДЖАРВИС, ваш AI-помощник в мире веб-разработки. Чем могу помочь?') // Исключаем ��ачальное сообщение
         .map(msg => ({
           role: msg.isUser ? 'user' as const : 'assistant' as const,
           content: msg.text
@@ -126,7 +125,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
 
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Извините, произошла ошибка. Попробуйте еще раз',
+        text: 'Извините, произошл�� ошибка. Попробуйте еще раз',
         isUser: false,
         timestamp: new Date()
       }
@@ -199,7 +198,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
               </svg>
             </div>
             <div>
-              <h3>ДЖАРВИ��</h3>
+              <h3>ДЖАРВИС</h3>
               <div className="status-indicator">
                 В сети
               </div>
