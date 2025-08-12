@@ -46,7 +46,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
     try {
       // Подготавливаем историю сообщений для API
       const apiMessages = conversationHistory
-        .filter(msg => msg.text !== 'Привет! Я ДЖАРВИС, ваш AI-помощник в мире веб-разработки. Чем могу помочь?') // Исключаем ��ачальное сообщение
+        .filter(msg => msg.text !== 'Привет! Я ДЖАРВИС, ваш AI-помощник в мире веб-разработки. Чем могу помочь?') // Исключаем начальное сообщение
         .map(msg => ({
           role: msg.isUser ? 'user' as const : 'assistant' as const,
           content: msg.text
@@ -125,7 +125,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
 
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Извините, произошл�� ошибка. Попробуйте еще раз',
+        text: 'Извините, произошла ошибка. Попробуйте еще раз',
         isUser: false,
         timestamp: new Date()
       }
@@ -143,45 +143,6 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
     }
   }
 
-  const handleVoiceTranscript = (transcript: string) => {
-    if (transcript.trim()) {
-      // Создаем голосовое сообщение напрямую
-      const voiceMessage: Message = {
-        id: Date.now().toString(),
-        text: `🎤 ${transcript.trim()}`,
-        isUser: true,
-        timestamp: new Date()
-      }
-
-      setMessages(prev => [...prev, voiceMessage])
-      setIsTyping(true)
-
-      // Отправляем на обработку AI
-      generateJarvisResponse(transcript.trim(), [...messages, voiceMessage])
-        .then(aiText => {
-          const aiResponse: Message = {
-            id: (Date.now() + 1).toString(),
-            text: aiText,
-            isUser: false,
-            timestamp: new Date()
-          }
-          setMessages(prev => [...prev, aiResponse])
-        })
-        .catch(error => {
-          console.error('Error generating AI response:', error)
-          const errorResponse: Message = {
-            id: (Date.now() + 1).toString(),
-            text: 'Извините, произошла ошибка. Попробуйте еще раз',
-            isUser: false,
-            timestamp: new Date()
-          }
-          setMessages(prev => [...prev, errorResponse])
-        })
-        .finally(() => {
-          setIsTyping(false)
-        })
-    }
-  }
 
   if (!isOpen) return null
 
