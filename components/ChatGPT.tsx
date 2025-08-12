@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { ChatHistoryManager, ChatSession, Message } from '../lib/chatHistory'
 import { useTheme } from '../contexts/ThemeContext'
+import VoiceRecordButton from './VoiceRecordButton'
 
 interface ChatGPTProps {
   isOpen: boolean
@@ -112,7 +113,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       return data.message
     } catch (error) {
       console.error('Error calling AI API:', error)
-      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в чате! 🚀'
+      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопрос�� прямо здесь в чате! 🚀'
     }
   }
 
@@ -361,7 +362,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Сообщение ДЖАРВИСУ..."
+              placeholder="Сообщение ДЖАРВИ��У..."
               className="jarvis-textarea"
               rows={1}
               disabled={isTyping || isUploadingFile}
