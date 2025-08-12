@@ -30,7 +30,7 @@ export default function VoiceRecordButton({
     }
   }, [transcript, isRecording, onTranscript, clearTranscript])
 
-  // ��оказываем ошибку в консоли (можно добавить уведомления)
+  // Показываем ошибку в консоли (можно добавить уведомления)
   useEffect(() => {
     if (error) {
       console.warn('Voice recording error:', error)
@@ -54,7 +54,7 @@ export default function VoiceRecordButton({
       onClick={handleClick}
       disabled={disabled}
       className={`voice-record-btn ${isRecording ? 'recording' : ''} ${className}`}
-      title={isRecording ? 'Остановить запись' : 'Записать голосовое сообщение'}
+      title={isRecording ? 'Нажмите чтобы остановить запись' : 'Записать голосовое сообщение'}
     >
       {isRecording ? (
         <div className="recording-animation">
