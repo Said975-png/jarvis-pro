@@ -44,7 +44,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
 
-      // Предотвращение зума на мобильных устройствах
+      // Предотвращение зума на моби��ьных устройствах
       const viewport = document.querySelector('meta[name=viewport]')
       if (viewport) {
         viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
@@ -78,7 +78,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const generateJarvisResponse = async (userMessage: string, conversationHistory: Message[]): Promise<string> => {
     try {
       const apiMessages = conversationHistory
-        .filter(msg => msg.text !== 'При��ет! Я ДЖАРВИС, ваш AI-помощник. Чем м��гу помочь?')
+        .filter(msg => msg.text !== 'При��ет! Я ДЖАРВИС, ваш AI-помощник. Чем могу помочь?')
         .map(msg => ({
           role: msg.isUser ? 'user' as const : 'assistant' as const,
           content: msg.text
@@ -357,16 +357,6 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
                 </svg>
               )}
             </button>
-            <VoiceRecordButton
-              onTranscript={handleVoiceTranscript}
-              onRecordingStart={() => setIsRecording(true)}
-              onRecordingStop={() => {
-                setIsRecording(false)
-                setLiveTranscript('')
-              }}
-              onLiveTranscript={setLiveTranscript}
-              disabled={isTyping || isUploadingFile}
-            />
             <textarea
               ref={textareaRef}
               value={inputText}
