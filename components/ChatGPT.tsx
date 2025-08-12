@@ -12,7 +12,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Привет! Я ДЖАРВИС, ваш AI-помощник. Чем могу помочь?',
+      text: 'Привет! Я ДЖАРВИС, ваш AI-помощник. Чем могу помоч��?',
       isUser: false,
       timestamp: new Date()
     }
@@ -113,6 +113,90 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
     } catch (error) {
       console.error('Error calling AI API:', error)
       return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в чате! 🚀'
+    }
+  }
+
+  const handleFileUpload = async (file: File) => {
+    if (!file || file.type !== 'application/pdf') {
+      const errorMessage: Message = {
+        id: Date.now().toString(),
+        text: 'Пожалуйста, выберите PDF файл',
+        isUser: false,
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
+      return
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      const errorMessage: Message = {
+        id: Date.now().toString(),
+        text: 'Размер файла не должен превышать 10MB',
+        isUser: false,
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
+      return
+    }
+
+    setIsUploadingFile(true)
+
+    // Добавляем сообщение о загрузке файла
+    const uploadMessage: Message = {
+      id: Date.now().toString(),
+      text: `📎 Загружаю файл: ${file.name}`,
+      isUser: true,
+      timestamp: new Date()
+    }
+    setMessages(prev => [...prev, uploadMessage])
+
+    try {
+      const formData = new FormData()
+      formData.append('pdf', file)
+
+      const response = await fetch('/api/analyze-pdf', {
+        method: 'POST',
+        body: formData
+      })
+
+      const data = await response.json()
+
+      const analysisMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: data.message || 'Файл проанализирован',
+        isUser: false,
+        timestamp: new Date()
+      }
+
+      setMessages(prev => [...prev, analysisMessage])
+    } catch (error) {
+      console.error('File upload error:', error)
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: `Ошибка при загр��зке файла: ${error instanceof Error ? error.message : 'Неизвестная ошибка'}`,
+        isUser: false,
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsUploadingFile(false)
+    }
+  }
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files.length > 0) {
+      handleFileUpload(files[0])
+    }
+    // Очищаем input для возможности повторной загрузки того же файла
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const openFileDialog = () => {
+    if (!isTyping && !isUploadingFile && fileInputRef.current) {
+      fileInputRef.current.click()
     }
   }
 
