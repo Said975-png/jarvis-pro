@@ -31,8 +31,13 @@ export default function VoiceRecordButton({
   // Отправляем транскрипт родительскому компоненту
   useEffect(() => {
     if (transcript && !isRecording) {
-      onTranscript(transcript)
-      clearTranscript()
+      // Небольшая задержка для уверенности что запись завершена
+      const timer = setTimeout(() => {
+        onTranscript(transcript)
+        clearTranscript()
+      }, 100)
+
+      return () => clearTimeout(timer)
     }
   }, [transcript, isRecording, onTranscript, clearTranscript])
 
