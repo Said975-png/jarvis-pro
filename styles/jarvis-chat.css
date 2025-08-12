@@ -518,6 +518,28 @@
   }
 }
 
+/* Live Transcript */
+.live-transcript {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #f0f6ff;
+  border: 1px solid #0066cc;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.live-transcript-label {
+  color: #0066cc;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.live-transcript-text {
+  color: #1f2937;
+  font-style: italic;
+  animation: pulse 1s ease-in-out infinite;
+}
+
 .jarvis-textarea {
   flex: 1;
   border: none;
