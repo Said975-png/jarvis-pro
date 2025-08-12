@@ -115,7 +115,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       return data.message
     } catch (error) {
       console.error('Error calling AI API:', error)
-      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблем�� повторится - задавайте вопросы прямо здесь в чате! 🚀'
+      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в чате! 🚀'
     }
   }
 
@@ -144,7 +144,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
 
     setIsUploadingFile(true)
 
-    // Добавляем сообщение о загрузке файла
+    // Добавляем сообщение о загр��зке файла
     const uploadMessage: Message = {
       id: Date.now().toString(),
       text: `📎 Загружаю файл: ${file.name}`,
@@ -283,7 +283,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Извините, произошла ошибка. По��р��буйте еще раз.',
+        text: 'Извините, произошла ошибка. Попр��буйте еще раз.',
         isUser: false,
         timestamp: new Date()
       }
@@ -437,10 +437,14 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
               </svg>
             </button>
           </div>
-          {isRecording && liveTranscript && (
+          {isRecording && (
             <div className="live-transcript">
-              <div className="live-transcript-label">Распознается:</div>
-              <div className="live-transcript-text">{liveTranscript}</div>
+              <div className="live-transcript-label">
+                {liveTranscript ? 'Распознается:' : 'Слушаю... Говорите сейчас'}
+              </div>
+              {liveTranscript && (
+                <div className="live-transcript-text">{liveTranscript}</div>
+              )}
             </div>
           )}
         </div>
