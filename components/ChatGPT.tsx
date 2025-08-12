@@ -12,7 +12,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Привет! Я ДЖАРВИС, ваш AI-пом��щник. Чем могу помочь?',
+      text: 'Привет! Я ДЖАРВИС, ваш AI-помощник. Чем могу помочь?',
       isUser: false,
       timestamp: new Date()
     }
@@ -20,8 +20,6 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [isUploadingFile, setIsUploadingFile] = useState(false)
-  const [isRecording, setIsRecording] = useState(false)
-  const [liveTranscript, setLiveTranscript] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -46,7 +44,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
 
-      // Предотвращение зума на мобильных устройствах
+      // Предотвращение зума на мобильны�� устройствах
       const viewport = document.querySelector('meta[name=viewport]')
       if (viewport) {
         viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
