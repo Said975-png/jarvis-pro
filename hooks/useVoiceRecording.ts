@@ -19,6 +19,8 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
   const recognitionRef = useRef<any>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const finalTranscriptRef = useRef('')
+  const retryCountRef = useRef(0)
+  const maxRetries = 3
 
   useEffect(() => {
     // Проверяем поддержку Web Speech API
@@ -131,7 +133,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       recognitionRef.current = recognition
     } else {
       setIsSupported(false)
-      setError('Ваш браузер не поддерживает распознавание речи.')
+      setError('Ваш браузер не подде��живает распознавание речи.')
     }
 
     return () => {
