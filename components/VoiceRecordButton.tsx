@@ -10,10 +10,13 @@ interface VoiceRecordButtonProps {
   className?: string
 }
 
-export default function VoiceRecordButton({ 
-  onTranscript, 
-  disabled = false, 
-  className = '' 
+export default function VoiceRecordButton({
+  onTranscript,
+  onRecordingStart,
+  onRecordingStop,
+  onLiveTranscript,
+  disabled = false,
+  className = ''
 }: VoiceRecordButtonProps) {
   const {
     isRecording,
