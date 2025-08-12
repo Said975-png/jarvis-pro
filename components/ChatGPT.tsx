@@ -21,6 +21,8 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [isUploadingFile, setIsUploadingFile] = useState(false)
+  const [isRecording, setIsRecording] = useState(false)
+  const [liveTranscript, setLiveTranscript] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -275,7 +277,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Извините, произошла ошибка. Попробуйте еще раз.',
+        text: 'Извините, произошла о��ибка. Попробуйте еще раз.',
         isUser: false,
         timestamp: new Date()
       }
