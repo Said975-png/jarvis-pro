@@ -90,7 +90,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             if (recognition && isRecording) {
               recognition.stop()
             }
-          }, 3000) // 3 секунды для промежуточных р��зультатов
+          }, 3000) // 3 секунды для промежуточных результатов
         }
         // Если ничего не распознано, ждем дольше для первоначального обнаружения речи
         else {
@@ -147,7 +147,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             break
           default:
             setIsRecording(false)
-            setError('Ошибка распознавания речи. Попробуйте еще раз.')
+            setError('Ошибка рас��ознавания речи. Попробуйте еще раз.')
         }
       }
       
@@ -179,6 +179,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
 
     setTranscript('')
     finalTranscriptRef.current = ''
+    retryCountRef.current = 0
     setError(null)
 
     try {
