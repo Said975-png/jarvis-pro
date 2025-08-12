@@ -475,6 +475,16 @@
   .chat-button-tooltip {
     display: none;
   }
+
+  .jarvis-chat-overlay.modal {
+    padding: 0;
+  }
+
+  .jarvis-chat-container-modal {
+    height: 100vh;
+    max-width: 100%;
+    border-radius: 0;
+  }
 }
 
 /* Smooth scrolling */
