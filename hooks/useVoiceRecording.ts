@@ -166,6 +166,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
 
   const clearTranscript = () => {
     setTranscript('')
+    finalTranscriptRef.current = ''
     setError(null)
   }
 
