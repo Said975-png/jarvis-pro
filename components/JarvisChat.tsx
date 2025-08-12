@@ -166,6 +166,9 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
       }
 
       setMessages(prev => [...prev, aiResponse])
+
+      // Сохраняем взаимодействие для обучения
+      await saveInteractionToLearning(currentInput, aiText, aiResponse.id)
     } catch (error) {
       console.error('Error generating AI response:', error)
 
