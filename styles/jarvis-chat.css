@@ -386,7 +386,7 @@
 .jarvis-input-container {
   display: flex;
   align-items: flex-end;
-  gap: 12px;
+  gap: 8px;
   background: #ffffff;
   border: 1px solid #d1d5db;
   border-radius: 12px;
