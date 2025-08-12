@@ -15,9 +15,10 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
   const [isSupported, setIsSupported] = useState(false)
   const [transcript, setTranscript] = useState('')
   const [error, setError] = useState<string | null>(null)
-  
+
   const recognitionRef = useRef<any>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const finalTranscriptRef = useRef('')
 
   useEffect(() => {
     // Проверяем поддержку Web Speech API
@@ -33,7 +34,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       recognition.interimResults = true
       recognition.lang = 'ru-RU'
       recognition.maxAlternatives = 1
-      // Более быстрая обработка результатов
+      // Б��лее быстрая обработка результатов
       recognition.serviceURI = ''
       
       recognition.onstart = () => {
@@ -103,7 +104,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             setError('Микрофон недоступен. Проверьте разрешения.')
             break
           case 'not-allowed':
-            setError('Доступ к микрофону запрещен. Р��зрешите использование микрофона.')
+            setError('Доступ к микрофону запрещен. Разрешите использование микрофона.')
             break
           case 'network':
             setError('Ошибка сети. Проверьте подключение к интернету.')
