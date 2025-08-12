@@ -75,7 +75,7 @@ export default function MessageFeedback({ interactionId, onFeedbackSent }: Messa
     return (
       <div className="message-feedback submitted">
         <span className="feedback-thanks">
-          Спасибо за ��братную связь! 🙏
+          Спасибо за обратную связь!
         </span>
       </div>
     )
@@ -112,7 +112,7 @@ export default function MessageFeedback({ interactionId, onFeedbackSent }: Messa
       ) : (
         <div className="feedback-comment">
           <div className="comment-header">
-            <span>Помогите ДЖАРВИС стать лучше:</span>
+            <span>Помог��те ДЖАРВИС стать лучше:</span>
           </div>
           <textarea
             value={comment}
