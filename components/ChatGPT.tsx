@@ -191,7 +191,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
     if (files && files.length > 0) {
       handleFileUpload(files[0])
     }
-    // Очищаем input для возможности повторной загрузки того же файла
+    // Очищаем input для возможности повторной загруз��и того же файла
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
@@ -277,7 +277,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Извините, произошла о��ибка. Попробуйте еще раз.',
+        text: 'Извините, произошла ошибка. Попр��буйте еще раз.',
         isUser: false,
         timestamp: new Date()
       }
@@ -402,6 +402,12 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
             </button>
             <VoiceRecordButton
               onTranscript={handleVoiceTranscript}
+              onRecordingStart={() => setIsRecording(true)}
+              onRecordingStop={() => {
+                setIsRecording(false)
+                setLiveTranscript('')
+              }}
+              onLiveTranscript={setLiveTranscript}
               disabled={isTyping || isUploadingFile}
             />
             <textarea
