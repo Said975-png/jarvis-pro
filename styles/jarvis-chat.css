@@ -342,7 +342,7 @@
 .typing-indicator {
   background: #f8f9fa !important;
   border: 1px solid #e5e7eb !important;
-  padding: 16px !important;
+  padding: 12px !important;
   display: flex;
   align-items: center;
   justify-content: flex-start;
