@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { ChatHistoryManager, ChatSession, Message } from '../lib/chatHistory'
 import { useTheme } from '../contexts/ThemeContext'
-import VoiceRecordButton from './VoiceRecordButton'
 
 interface ChatGPTProps {
   isOpen: boolean
@@ -13,7 +12,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Привет! Я ДЖАРВИС, ваш AI-помощник. Чем могу помочь?',
+      text: 'Привет! Я ДЖАРВИС, ваш AI-пом��щник. Чем могу помочь?',
       isUser: false,
       timestamp: new Date()
     }
@@ -144,7 +143,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
 
     setIsUploadingFile(true)
 
-    // Добавляем сообщение о загр��зке файла
+    // Добавляем сообщение о загрузке файла
     const uploadMessage: Message = {
       id: Date.now().toString(),
       text: `📎 Загружаю файл: ${file.name}`,
