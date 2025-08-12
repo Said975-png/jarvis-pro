@@ -41,29 +41,51 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       recognition.onresult = (event: any) => {
         let finalTranscript = ''
         let interimTranscript = ''
-        
+        let hasFinalResult = false
+
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const transcriptPart = event.results[i][0].transcript
-          
+
           if (event.results[i].isFinal) {
             finalTranscript += transcriptPart
+            hasFinalResult = true
           } else {
             interimTranscript += transcriptPart
           }
         }
-        
-        setTranscript(finalTranscript + interimTranscript)
-        
-        // Автоматически останавливаем запись через 5 секунд тишины
+
+        const fullTranscript = finalTranscript + interimTranscript
+        setTranscript(fullTranscript)
+
+        // Очищаем предыдущий таймер
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current)
         }
-        
-        timeoutRef.current = setTimeout(() => {
-          if (recognition && isRecording) {
-            recognition.stop()
-          }
-        }, 5000)
+
+        // Если есть финальный результат и достаточно текста, останавливаем быстрее
+        if (hasFinalResult && finalTranscript.trim().length > 3) {
+          timeoutRef.current = setTimeout(() => {
+            if (recognition && isRecording) {
+              recognition.stop()
+            }
+          }, 1500) // 1.5 секунды после финального результата
+        }
+        // Если только промежуточные результаты, ждем дольше
+        else if (interimTranscript.trim().length > 0) {
+          timeoutRef.current = setTimeout(() => {
+            if (recognition && isRecording) {
+              recognition.stop()
+            }
+          }, 3000) // 3 секунды для промежуточных результатов
+        }
+        // Если ничего не распознано, останавливаем через короткое время
+        else {
+          timeoutRef.current = setTimeout(() => {
+            if (recognition && isRecording) {
+              recognition.stop()
+            }
+          }, 2000)
+        }
       }
       
       recognition.onerror = (event: any) => {
