@@ -44,7 +44,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
 
-      // Предотвращение зума на моби��ьных устройствах
+      // Предотвращение зума на мобильных устройствах
       const viewport = document.querySelector('meta[name=viewport]')
       if (viewport) {
         viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
@@ -378,16 +378,6 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
               </svg>
             </button>
           </div>
-          {isRecording && (
-            <div className="live-transcript">
-              <div className="live-transcript-label">
-                {liveTranscript ? 'Распознается:' : 'Слушаю... Говорите сейчас'}
-              </div>
-              {liveTranscript && (
-                <div className="live-transcript-text">{liveTranscript}</div>
-              )}
-            </div>
-          )}
         </div>
       </div>
     </div>
