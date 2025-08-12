@@ -144,6 +144,46 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
     }
   }
 
+  const handleVoiceTranscript = (transcript: string) => {
+    if (transcript.trim()) {
+      // Создаем голосовое сообщение напрямую
+      const voiceMessage: Message = {
+        id: Date.now().toString(),
+        text: `🎤 ${transcript.trim()}`,
+        isUser: true,
+        timestamp: new Date()
+      }
+
+      setMessages(prev => [...prev, voiceMessage])
+      setIsTyping(true)
+
+      // Отправляем на обработку AI
+      generateJarvisResponse(transcript.trim(), [...messages, voiceMessage])
+        .then(aiText => {
+          const aiResponse: Message = {
+            id: (Date.now() + 1).toString(),
+            text: aiText,
+            isUser: false,
+            timestamp: new Date()
+          }
+          setMessages(prev => [...prev, aiResponse])
+        })
+        .catch(error => {
+          console.error('Error generating AI response:', error)
+          const errorResponse: Message = {
+            id: (Date.now() + 1).toString(),
+            text: 'Извините, произошла ошибка. Попробуйте еще раз',
+            isUser: false,
+            timestamp: new Date()
+          }
+          setMessages(prev => [...prev, errorResponse])
+        })
+        .finally(() => {
+          setIsTyping(false)
+        })
+    }
+  }
+
   if (!isOpen) return null
 
   return (
