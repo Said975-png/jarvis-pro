@@ -199,7 +199,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
               </svg>
             </div>
             <div>
-              <h3>ДЖАРВИС</h3>
+              <h3>ДЖАРВИ��</h3>
               <div className="status-indicator">
                 В сети
               </div>
@@ -265,6 +265,10 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
         {/* Input */}
         <div className="jarvis-input-area">
           <div className="jarvis-input-container">
+            <VoiceRecordButton
+              onTranscript={handleVoiceTranscript}
+              disabled={isTyping}
+            />
             <textarea
               ref={textareaRef}
               value={inputText}
