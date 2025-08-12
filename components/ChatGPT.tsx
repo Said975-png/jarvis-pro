@@ -113,7 +113,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       return data.message
     } catch (error) {
       console.error('Error calling AI API:', error)
-      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопрос�� прямо здесь в чате! 🚀'
+      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в чате! 🚀'
     }
   }
 
@@ -198,6 +198,18 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   const openFileDialog = () => {
     if (!isTyping && !isUploadingFile && fileInputRef.current) {
       fileInputRef.current.click()
+    }
+  }
+
+  const handleVoiceTranscript = (transcript: string) => {
+    if (transcript.trim()) {
+      setInputText(transcript.trim())
+      // Автоматически отправляем голосовое сообщение
+      setTimeout(() => {
+        if (transcript.trim()) {
+          handleSendMessage()
+        }
+      }, 100)
     }
   }
 
@@ -362,7 +374,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Сообщение ДЖАРВИ��У..."
+              placeholder="Сообщение ДЖАРВИСУ..."
               className="jarvis-textarea"
               rows={1}
               disabled={isTyping || isUploadingFile}
