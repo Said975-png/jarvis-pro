@@ -24,8 +24,53 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
   ])
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [interactionIds, setInteractionIds] = useState<{[messageId: string]: string}>({})
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const sessionId = useRef(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`)
+
+  // Функция для сохранения взаимодействия в базе знаний
+  const saveInteractionToLearning = async (userMessage: string, botResponse: string, aiMessageId: string) => {
+    try {
+      const response = await fetch('/api/learning', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'save_interaction',
+          userMessage,
+          botResponse,
+          sessionId: sessionId.current,
+          context: messages.slice(-3).map(m => m.text),
+          tags: extractTags(userMessage + ' ' + botResponse)
+        }),
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        setInteractionIds(prev => ({
+          ...prev,
+          [aiMessageId]: data.data.interactionId
+        }))
+        console.log('Interaction saved for learning:', data.data.interactionId)
+      }
+    } catch (error) {
+      console.error('Error saving interaction for learning:', error)
+    }
+  }
+
+  // Извлечение тегов из текста
+  const extractTags = (text: string): string[] => {
+    const commonTags = [
+      'веб-разработка', 'дизайн', 'программирование', 'ai', 'технологии',
+      'фронтенд', 'бэкенд', 'react', 'javascript', 'typescript', 'css',
+      'html', 'api', 'база данных', 'сеть', 'безопасность'
+    ]
+
+    const lowerText = text.toLowerCase()
+    return commonTags.filter(tag => lowerText.includes(tag))
+  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -86,7 +131,7 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
       // Резервные ответы в случае ошибки
       const fallbackResponses = [
         'Я ДЖАРВИС и я здесь, чтобы помочь! Попробуйте ещё раз. Если проблемы повторяются - опишите ваш вопрос подробнее! 🚀',
-        'Привет! Я ДЖАРВИС и всегда г��тов помочь с веб-разработкой! Попробуйте переформулировать вопрос или задайте новый! ✨',
+        'Привет! Я ДЖАРВИС и всегда готов помочь с веб-разработкой! Попробуйте переформулировать вопрос или задайте новый! ✨',
         'Я готов ответить на любые вопросы о веб-разработке и AI! Попробуйте снова. 🔧',
       ]
 
