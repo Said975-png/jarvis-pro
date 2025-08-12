@@ -115,7 +115,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       return data.message
     } catch (error) {
       console.error('Error calling AI API:', error)
-      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в чате! 🚀'
+      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы п��ямо здесь в чате! 🚀'
     }
   }
 
@@ -431,6 +431,12 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
               </svg>
             </button>
           </div>
+          {isRecording && liveTranscript && (
+            <div className="live-transcript">
+              <div className="live-transcript-label">Распознается:</div>
+              <div className="live-transcript-text">{liveTranscript}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
