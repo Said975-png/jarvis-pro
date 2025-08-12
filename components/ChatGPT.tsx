@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { ChatHistoryManager, ChatSession, Message } from '../lib/chatHistory'
 import { useTheme } from '../contexts/ThemeContext'
+import MessageFeedback from './MessageFeedback'
 
 interface ChatGPTProps {
   isOpen: boolean
@@ -112,7 +113,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       return data.message
     } catch (error) {
       console.error('Error calling AI API:', error)
-      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы прямо здесь в чате! 🚀'
+      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если пробл��ма повторится - задавайте вопросы прямо здесь в чате! 🚀'
     }
   }
 
