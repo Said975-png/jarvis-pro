@@ -248,45 +248,6 @@ export default function JarvisChat({ isOpen, onClose }: JarvisChatProps) {
         </div>
       </div>
 
-      <style jsx>{`
-        .jarvis-chat-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.4);
-          z-index: 1000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-        }
-
-        .jarvis-chat-container-modal {
-          width: 100%;
-          max-width: 800px;
-          height: 85vh;
-          background: #ffffff;
-          border-radius: 12px;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        @media (max-width: 768px) {
-          .jarvis-chat-overlay {
-            padding: 0;
-          }
-
-          .jarvis-chat-container-modal {
-            height: 100vh;
-            max-width: 100%;
-            border-radius: 0;
-          }
-        }
-      `}</style>
     </div>
   )
 }
