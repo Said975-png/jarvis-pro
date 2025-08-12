@@ -32,6 +32,9 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       recognition.continuous = true
       recognition.interimResults = true
       recognition.lang = 'ru-RU'
+      recognition.maxAlternatives = 1
+      // Более быстрая обработка результатов
+      recognition.serviceURI = ''
       
       recognition.onstart = () => {
         setIsRecording(true)
@@ -100,7 +103,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             setError('Микрофон недоступен. Проверьте разрешения.')
             break
           case 'not-allowed':
-            setError('Доступ к микрофону запрещен. Разрешите использование микрофона.')
+            setError('Доступ к микрофону запрещен. Р��зрешите использование микрофона.')
             break
           case 'network':
             setError('Ошибка сети. Проверьте подключение к интернету.')
