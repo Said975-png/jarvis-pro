@@ -40,6 +40,8 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       recognition.onstart = () => {
         setIsRecording(true)
         setError(null)
+        finalTranscriptRef.current = ''
+        setTranscript('')
       }
       
       recognition.onresult = (event: any) => {
