@@ -115,7 +115,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       return data.message
     } catch (error) {
       console.error('Error calling AI API:', error)
-      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблема повторится - задавайте вопросы п��ямо здесь в чате! 🚀'
+      return 'Я готов помочь! Попробуйте ещё раз, задав ваш вопрос. Если проблем�� повторится - задавайте вопросы прямо здесь в чате! 🚀'
     }
   }
 
@@ -204,7 +204,11 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
   }
 
   const handleVoiceTranscript = (transcript: string) => {
+    console.log('Voice transcript received:', transcript)
+
     if (transcript.trim()) {
+      console.log('Processing voice message:', transcript.trim())
+
       // Создаем голосовое сообщение напрямую
       const voiceMessage: Message = {
         id: Date.now().toString(),
@@ -241,6 +245,8 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
         .finally(() => {
           setIsTyping(false)
         })
+    } else {
+      console.log('Empty transcript received, ignoring')
     }
   }
 
@@ -277,7 +283,7 @@ export default function ChatGPT({ isOpen, onClose }: ChatGPTProps) {
       
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Извините, произошла ошибка. Попр��буйте еще раз.',
+        text: 'Извините, произошла ошибка. По��р��буйте еще раз.',
         isUser: false,
         timestamp: new Date()
       }
