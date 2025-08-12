@@ -82,7 +82,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             if (recognition && isRecording) {
               recognition.stop()
             }
-          }, 1000) // 1 секунда после финального результата
+          }, 1200) // 1.2 секунды после финального результата
         }
         // Если только промежуточные результаты, ждем дольше
         else if (interimTranscript.trim().length > 0) {
@@ -90,15 +90,15 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
             if (recognition && isRecording) {
               recognition.stop()
             }
-          }, 2500) // 2.5 секунды для промежуточных результатов
+          }, 3000) // 3 секунды для промежуточных р��зультатов
         }
-        // Если ничего не распознано, останавливаем через короткое время
+        // Если ничего не распознано, ждем дольше для первоначального обнаружения речи
         else {
           timeoutRef.current = setTimeout(() => {
             if (recognition && isRecording) {
               recognition.stop()
             }
-          }, 1500)
+          }, 5000) // 5 секунд для ожидания начала речи
         }
       }
       
