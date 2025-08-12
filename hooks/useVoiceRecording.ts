@@ -103,22 +103,49 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       
       recognition.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error)
-        setIsRecording(false)
-        
+
         switch (event.error) {
           case 'no-speech':
-            setError('Речь не обнаружена. Попробуйте еще раз.')
+            // Автоматически перезапускаем при отсутствии речи
+            if (retryCountRef.current < maxRetries) {
+              retryCountRef.current++
+              console.log(`No speech detected, retrying... (${retryCountRef.current}/${maxRetries})`)
+
+              // Небольшая задержка перед перезапуском
+              setTimeout(() => {
+                if (recognitionRef.current && isRecording) {
+                  try {
+                    recognitionRef.current.start()
+                  } catch (e) {
+                    console.error('Error restarting recognition:', e)
+                    setIsRecording(false)
+                    setError('Не удалось перезапустить запись. Попробуйте еще раз.')
+                  }
+                }
+              }, 500)
+            } else {
+              setIsRecording(false)
+              setError('Речь не обнаружена. Попробуйте говорить громче или ближе к микрофону.')
+            }
             break
           case 'audio-capture':
-            setError('Микрофон недоступен. Проверьте разрешения.')
+            setIsRecording(false)
+            setError('Микрофон недоступен. Проверьте разрешения и подключение.')
             break
           case 'not-allowed':
-            setError('Доступ к микрофону запрещен. Разрешите использование микрофона.')
+            setIsRecording(false)
+            setError('Доступ к микрофону запрещен. Разрешите использование микрофона в настройках браузера.')
             break
           case 'network':
+            setIsRecording(false)
             setError('Ошибка сети. Проверьте подключение к интернету.')
             break
+          case 'aborted':
+            // Запись была прервана пользователем, не показываем ошибку
+            setIsRecording(false)
+            break
           default:
+            setIsRecording(false)
             setError('Ошибка распознавания речи. Попробуйте еще раз.')
         }
       }
@@ -133,7 +160,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       recognitionRef.current = recognition
     } else {
       setIsSupported(false)
-      setError('Ваш браузер не подде��живает распознавание речи.')
+      setError('Ваш браузер не поддерживает распознавание речи.')
     }
 
     return () => {
