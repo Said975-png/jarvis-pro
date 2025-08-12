@@ -102,7 +102,7 @@
   }
 }
 
-/* Chat Overlay */
+/* Chat Overlay - Full Screen */
 .jarvis-chat-overlay {
   position: fixed;
   top: 0;
@@ -112,6 +112,15 @@
   background: #ffffff;
   z-index: 1000;
   animation: overlayFadeIn 0.3s ease-out;
+}
+
+/* Chat Overlay - Modal */
+.jarvis-chat-overlay.modal {
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
 @keyframes overlayFadeIn {
