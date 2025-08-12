@@ -36,6 +36,22 @@ export default function VoiceRecordButton({
     }
   }, [transcript, isRecording, onTranscript, clearTranscript])
 
+  // Отправляем живой транскрипт во время записи
+  useEffect(() => {
+    if (transcript && isRecording && onLiveTranscript) {
+      onLiveTranscript(transcript)
+    }
+  }, [transcript, isRecording, onLiveTranscript])
+
+  // Уведомляем о начале и конце записи
+  useEffect(() => {
+    if (isRecording && onRecordingStart) {
+      onRecordingStart()
+    } else if (!isRecording && onRecordingStop) {
+      onRecordingStop()
+    }
+  }, [isRecording, onRecordingStart, onRecordingStop])
+
   // Показываем ошибку в консоли (можно добавить уведомления)
   useEffect(() => {
     if (error) {
