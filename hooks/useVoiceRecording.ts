@@ -146,10 +146,11 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
       setError('Распознавание речи недоступно.')
       return
     }
-    
+
     setTranscript('')
+    finalTranscriptRef.current = ''
     setError(null)
-    
+
     try {
       recognitionRef.current.start()
     } catch (error) {
