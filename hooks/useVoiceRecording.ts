@@ -44,6 +44,7 @@ export const useVoiceRecording = (): VoiceRecordingHook => {
         setError(null)
         finalTranscriptRef.current = ''
         setTranscript('')
+        retryCountRef.current = 0 // Сброс счетчика при успешном старте
       }
       
       recognition.onresult = (event: any) => {
