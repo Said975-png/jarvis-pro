@@ -94,8 +94,7 @@ export default function MessageFeedback({ interactionId, onFeedbackSent }: Messa
               title="Да, полезно"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M8 12L3 7L4.4 5.6L8 9.2L19.6 -2.4L21 -1L8 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M14 9L9 4L10.4 2.6L14 6.2L25.6 -5.4L27 -4L14 9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M14 9V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V9H6C4.89543 9 4 9.89543 4 11V13C4 14.1046 4.89543 15 6 15H8L10 21H18L20 15H20C21.1046 15 22 14.1046 22 13V11C22 9.89543 21.1046 9 20 9H14Z" fill="currentColor"/>
               </svg>
             </button>
             <button
@@ -105,8 +104,7 @@ export default function MessageFeedback({ interactionId, onFeedbackSent }: Messa
               title="Нет, не полезно"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M10 15V19C10 20.1046 10.8954 21 12 21C13.1046 21 14 20.1046 14 19V15H18C19.1046 15 20 14.1046 20 13V11C20 9.89543 19.1046 9 18 9H16L14 3H6L4 9H4C2.89543 9 2 9.89543 2 11V13C2 14.1046 2.89543 15 4 15H10Z" fill="currentColor"/>
               </svg>
             </button>
           </div>
